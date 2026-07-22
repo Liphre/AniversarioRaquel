@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15 Anos • Raquel Lopes</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Parisienne&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <!-- DotLottie Web Component Script -->
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.14/dist/dotlottie-wc.js" type="module"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #4A4A4A;
+            background: linear-gradient(135deg, #F9F4F2 0%, #F4E8EA 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .invite-container {
+            width: 100%;
+            max-width: 440px;
+            background: #FFFDFC;
+            border: 2px solid #C9A44C;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(180, 150, 150, 0.2);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .xv-title {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 80px;
+            color: #C9A44C;
+            margin-top: 0;
+            margin-bottom: -5px;
+            line-height: 1;
+        }
+
+        .name {
+            font-family: 'Parisienne', cursive;
+            font-size: 42px;
+            color: #2C2C2C;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .invite-call {
+            font-size: 11px;
+            font-weight: 400;
+            color: #7A7A7A;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #FDFBF9;
+            border: 1.5px solid rgba(201, 164, 76, 0.35);
+            border-radius: 12px;
+            padding: 18px 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(201, 164, 76, 0.1);
+        }
+
+        .info-box {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+            color: #C9A44C;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .info-box span {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            color: #8A8A8A;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .buttons-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .action-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FDFBF9;
+            border: 1.5px solid #E6DCCD;
+            border-radius: 12px;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: #4A4A4A;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .action-card:hover {
+            border-color: #C9A44C;
+            background: #FFF9F0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 164, 76, 0.15);
+        }
+
+        .card-content-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #2C2C2C;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        .card-action {
+            font-size: 11px;
+            font-weight: 700;
+            color: #FFFFFF;
+            background-color: #C9A44C;
+            padding: 8px 12px;
+            border-radius: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(201, 164, 76, 0.3);
+            transition: background-color 0.2s ease;
+        }
+
+        .action-card:hover .card-action {
+            background-color: #B38F3B;
+        }
+
+        .footer-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 16px;
+            color: #8A7B5E;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        /* Estilização Geral dos Modais */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(40, 30, 35, 0.6);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: #FFFDFC;
+            border: 1.5px solid #C9A44C;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 360px;
+            padding: 25px;
+            text-align: left;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(201, 164, 76, 0.25);
+            padding-bottom: 10px;
+        }
+
+        .modal-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-title-wrapper dotlottie-wc {
+            width: 24px;
+            height: 24px;
+        }
+
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            color: #C9A44C;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #C9A44C;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .gift-section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #C9A44C;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            margin-top: 14px;
+        }
+
+        .gift-text {
+            font-size: 12px;
+            color: #5A5A5A;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .store-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-align: center;
+            background-color: #C9A44C;
+            color: #FFFDFC;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            margin-top: 8px;
+            margin-bottom: 12px;
+            transition: background-color 0.2s ease;
+        }
+
+        .store-btn:hover {
+            background-color: #B38F3B;
+        }
+
+        .pix-box {
+            background: #FDFBF9;
+            border: 1.5px dashed #C9A44C;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pix-box:hover {
+            background: #FFF9F0;
+            border-color: #B38F3B;
+            transform: scale(1.02);
+        }
+
+        .pix-key {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2C2C2C;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .route-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #FDFBF9;
+            border: 1.5px solid #E6DCCD;
+            border-radius: 10px;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: #2C2C2C;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .route-btn:hover {
+            border-color: #C9A44C;
+            background: #FFF9F0;
+        }
+
+        .click-lottie {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1005;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invite-container">
+        <div class="xv-title">XV</div>
+        <div class="name">Raquel Lopes</div>
+        <div style="font-family: 'Parisienne', cursive; font-size: 26px; color: #2C2C2C; margin-top: -12px; margin-bottom: 15px;">Carvalhaes de Lima</div>
+        <div class="invite-call">Venha celebrar comigo essa data especial!</div>
+        
+        <!-- Bloco de Informações com Destaque Elegante -->
+        <div class="info-row">
+            <div class="info-box">
+                <span>Dia</span>
+                08/08
+            </div>
+            <div class="info-box" style="border-left: 1px solid rgba(201, 164, 76, 0.3); border-right: 1px solid rgba(201, 164, 76, 0.3); padding: 0 12px; font-size: 15px; line-height: 1.2;">
+                <span>Local</span>
+                Casa 600 Festas
+            </div>
+            <div class="info-box">
+                <span>Às</span>
+                19h30
+            </div>
+        </div>
+
+        <div class="buttons-grid">
+            <!-- Sugestões de Presentes -->
+            <div class="action-card" onclick="openModal('giftModal')">
+                <div class="card-content-left">
+                    <svg fill="#C9A44C" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 20px; height: 20px;"><path d="M426.667,149.333H351.488C359.104,133.547,362.667,115.627,362.667,96c0-42.347-34.32-76.667-76.667-76.667c-26.667,0-50.133,13.867-63.997,35.2C208.267,33.2,184.8,19.333,158.133,19.333C115.787,19.333,81.467,53.653,81.467,96c0,19.627,3.563,37.547,11.179,53.333H17.333C7.787,149.333,0,157.12,0,166.667v42.667c0,9.547,7.787,17.333,17.333,17.333h17.333v234.667C34.667,272,42.453,279.787,52,279.787h408c9.547,0,17.333-7.787,17.333-17.333V226.667h17.333c9.547,0,17.333-7.787,17.333-17.333v-42.667C444,157.12,436.213,149.333,426.667,149.333z M286,96c0,21.12-17.2,38.333-38.333,38.333S209.333,117.12,209.333,96s17.2-38.333,38.333-38.333S286,74.88,286,96z M118.8,96c0-21.12,17.2-38.333,38.333-38.333c16.027,0,29.813,10.027,35.413,24.133C174.56,92.053,158.133,108.48,142.933,127.147C127.733,109.973,118.8,103.547,118.8,96z M69.333,226.667v-42.667h136v42.667H69.333z M221.333,279.787H69.333V262.453h152V279.787z M221.333,297.12v128H69.333v-128H221.333z M290.667,425.12v-128h151.997v128H290.667z M442.667,279.787H290.667V262.453h152V279.787z M442.667,226.667h-136v-42.667h136V226.667z"/></svg>
+                    <div class="card-title">Sugestões de Presentes</div>
+                </div>
+                <div class="card-action">Ver Lista</div>
+            </div>
+
+            <!-- Como Chegar -->
+            <div class="action-card" onclick="openModal('mapModal')">
+                <div class="card-content-left">
+                    <svg fill="#C9A44C" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 407.605 407.605" style="width: 20px; height: 20px;"><g><g><path d="M203.805,303.261c11.283,0,105.451-116.968,105.451-175.209c0-58.239-47.213-105.452-105.451-105.452 c-58.242,0-105.453,47.213-105.453,105.452C98.352,186.292,192.93,303.261,203.805,303.261z M135.69,124.359 c0-37.618,30.494-68.113,68.115-68.113c37.617,0,68.113,30.495,68.113,68.113c0,37.618-30.496,68.114-68.113,68.114 C166.184,192.473,135.69,161.977,135.69,124.359z"/><path d="M391.088,222.666c0-9.713-7.9-17.614-17.613-17.614c0,0-47.016,0-64.223,0c-1.34,0-2.883-0.071-4.58,2.776 c-3.389,5.688-3.092,5.188-6.273,10.453c-1.48,2.449,0.76,3.279,1.682,3.279c20.564,0,73.396,0,73.396,0 c0.588,0,1.104,0.518,1.104,1.104l16.52,144.727c0,0.588-0.516,1.105-1.105,1.105H17.616c-0.592,0-1.105-0.518-1.105-1.105 l16.517-144.725c0-0.588,0.516-1.104,1.105-1.104c0,0,54.619,0,72.826,0c1.5,0,3.875-0.872,1.174-5.269 c-3.169-5.157-1.941-3.646-5.299-9.354c-1.25-2.125-2.983-1.888-5.328-1.888c-15.844,0-63.373,0-63.373,0 c-9.709,0-17.613,7.901-17.613,17.614L0,367.393c0,9.713,7.902,17.613,17.615,17.613h372.377c9.715,0,17.613-7.9,17.613-17.613 L391.088,222.666z"/></path></g></g></svg>
+                    <div class="card-title">Como Chegar</div>
+                </div>
+                <div class="card-action">Ver Local</div>
+            </div>
+
+            <!-- Confirmar Presença -->
+            <a class="action-card" href="https://wa.me/5527999999999?text=Olá! Confirmo minha presença na festa de 15 anos da Raquel." target="_blank">
+                <div class="card-content-left">
+                    <svg fill="#C9A44C" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300.544 300.544" style="width: 20px; height: 20px;"><path d="M253.072,0c-2.768,0-4.955,2.113-5.262,4.8H52.725C52.426,2.113,50.231,0,47.462,0c-2.971,0-5.375,2.405-5.375,5.375v4.8 v21.502v4.8c0,2.974,2.404,5.376,5.375,5.376c2.77,0,4.964-2.114,5.263-4.802h12.638c19.927,36.649,9.521,73.144-1.559,111.734 c-10.724,37.358-21.779,75.91-3.349,114.702h-7.729c-0.299-2.688-2.493-4.797-5.263-4.797c-2.971,0-5.375,2.403-5.375,5.376v4.797 v21.502v4.803c0,2.978,2.404,5.375,5.375,5.375c2.77,0,4.964-2.114,5.263-4.802H247.81c0.312,2.688,2.501,4.802,5.267,4.802 c2.977,0,5.376-2.397,5.376-5.375v-4.803v-21.502v-4.797c0-2.973-2.399-5.376-5.376-5.376c-2.766,0-4.955,2.109-5.267,4.797h-14 c-19.926-36.645-9.489-73.14,1.587-111.728c10.729-37.36,21.78-75.914,3.348-114.708h9.076c0.306,2.688,2.495,4.802,5.261,4.802 c2.972,0,5.376-2.402,5.376-5.376v-4.8V10.176v-4.8C258.447,2.41,256.042,0,253.072,0z M247.696,284.991H52.837V274.24h194.858 V284.991z M52.837,15.552h194.858v10.751H52.837V15.552z"/></svg>
+                    <div class="card-title">Confirmar Presença</div>
+                </div>
+                <div class="card-action">Confirmar</div>
+            </a>
+        </div>
+
+        <div class="footer-text">
+            "Sua presença tornará este dia ainda mais inesquecível!"
+        </div>
+    </div>
+
+    <!-- Modal de Sugestões de Presentes -->
+    <div id="giftModal" class="modal">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title-wrapper">
+                    <dotlottie-wc src="https://lottie.host/87a80b1f-95e5-4d23-917a-5c70e586fa16/2VGVTvs6CZ.lottie" autoplay loop></dotlottie-wc>
+                    <div class="modal-title">Lista de Presentes</div>
+                </div>
+                <button class="close-btn" onclick="closeModal('giftModal')">&times;</button>
+            </div>
+            
+            <div class="gift-section-title">
+                ✨ Preferência de Loja
+            </div>
+            <p class="gift-text">A Raquel tem preferência especial por peças e produtos da loja parceira:</p>
+            <a class="store-btn" href="https://www.instagram.com/diferenzza_multimarcas_?igsh=MTVpengxNGl0OGlrZQ==" target="_blank">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFDFC" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" fill="#FFFDFC"/><path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z" fill="#FFFDFC"/><path fill-rule="evenodd" clip-rule="evenodd" d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z" fill="#FFFDFC"/></svg>
+                Ver Diferenzza Multimarcas
+            </a>
+
+            <div class="gift-section-title">
+                <svg width="16" height="16" viewBox="0 0 512 512" fill="#C9A44C" xmlns="http://www.w3.org/2000/svg"><path d="M329.31,195.497c0-37.245,44.218-67.499,44.218-96.59c0-18.02-13.153-33.706-32.578-41.814V0h-16.289v52.39 c-4.505-0.775-9.172-1.189-13.965-1.189c-23.461,0-43.894,9.766-54.687,24.218c-10.794-14.451-31.246-24.218-54.706-24.218 c-4.794,0-9.46,0.414-13.965,1.189V0H171.05v57.092c-19.406,8.108-32.579,23.794-32.579,41.814 c0,29.091,44.219,59.345,44.219,96.59c0,116.358-88.437,104.727-88.437,265.302c0,0,16.289,18.623,74.472,18.623 c37.317,0,47.714,32.578,87.284,32.578c39.552,0,49.948-32.578,87.265-32.578c58.184,0,74.473-18.623,74.473-18.623 C417.747,300.224,329.31,311.854,329.31,195.497z"/></svg>
+                Outras Opções
+            </div>
+            <p class="gift-text">• <strong>Itens Farm</strong> (roupas, acessórios e coleções)</p>
+
+            <div class="gift-section-title">
+                <svg width="16" height="16" viewBox="0 0 300.544 300.544" fill="#C9A44C" xmlns="http://www.w3.org/2000/svg"><path d="M253.072,0c-2.768,0-4.955,2.113-5.262,4.8H52.725C52.426,2.113,50.231,0,47.462,0c-2.971,0-5.375,2.405-5.375,5.375v4.8 v21.502v4.8c0,2.974,2.404,5.376,5.375,5.376c2.77,0,4.964-2.114,5.263-4.802h12.638c19.927,36.649,9.521,73.144-1.559,111.734 c-10.724,37.358-21.779,75.91-3.349,114.702h-7.729c-0.299-2.688-2.493-4.797-5.263-4.797c-2.971,0-5.375,2.403-5.375,5.376v4.797 v21.502v4.803c0,2.978,2.404,5.375,5.375,5.375c2.77,0,4.964-2.114,5.263-4.802H247.81c0.312,2.688,2.501,4.802,5.267,4.802 c2.977,0,5.376-2.397,5.376-5.375v-4.803v-21.502v-4.797c0-2.973-2.399-5.376-5.376-5.376c-2.766,0-4.955,2.109-5.267,4.797h-14 c-19.926-36.645-9.489-73.14,1.587-111.728c10.729-37.36,21.78-75.914,3.348-114.708h9.076c0.306,2.688,2.495,4.802,5.261,4.802 c2.972,0,5.376-2.402,5.376-5.376v-4.8V10.176v-4.8C258.447,2.41,256.042,0,253.072,0z M247.696,284.991H52.837V274.24h194.858 V284.991z M52.837,15.552h194.858v10.751H52.837V15.552z"/></svg>
+                Contribuição via Pix (Nubank)
+            </div>
+            <p class="gift-text" style="text-align: center;">Caso prefira presentear com qualquer valor:</p>
+            <div class="pix-box" onclick="copiarPix()">
+                <div style="font-size: 10px; color: #7A7A7A; text-transform: uppercase; letter-spacing: 2px;" id="pixLabel">Chave Pix (Celular) • Nubank (Toque para copiar)</div>
+                <div class="pix-key" id="pixKeyText">27 98810-2800</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Escolha de Navegador (Waze ou Maps) -->
+    <div id="mapModal" class="modal">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title-wrapper">
+                    <div class="modal-title">Escolha o Aplicativo</div>
+                </div>
+                <button class="close-btn" onclick="closeModal('mapModal')">&times;</button>
+            </div>
+            
+            <p class="gift-text" style="margin-bottom: 15px;">Como você deseja abrir a localização da <strong>Casa 600 Festas</strong>?</p>
+            
+            <!-- Botão Waze -->
+            <a class="route-btn" href="https://waze.com/ul?q=R.+29,+109+-+Santa+Monica+Popular,+Vila+Velha+-+ES" target="_blank" onclick="closeModal('mapModal')">
+                <svg viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;"><path d="M0 0h192v192H0z" style="fill:none"/><path d="M167.91 57.17c-11.19-23.85-31-37.94-57.29-40.74-20.35-2.15-38.54 3.79-54.07 17.69C41.49 47.68 33.6 64.84 33.07 85.1c-.08 3 0 6 0 9v4.2c-.09 6.56-3.4 11.33-9.35 13.51l-1.57.26a4.66 4.66 0 0 0-4.36 6.31l.73 1.91c3.93 10.39 18.73 25.07 29.5 29.32l.3.12.46.17 11.27 2.26a8.09 8.09 0 0 1 15.28 3.07l11.45 2.3h10.23c2.22 0 4.48 0 6.71-.17h.63a101.71 101.71 0 0 0 11.44-1.12c1.67-.26 3.35-.6 5-1A69.27 69.27 0 0 0 131 151.9a67.88 67.88 0 0 0 10.78-5.58 70.47 70.47 0 0 0 26.18-89.15Zm-11.26 54.71a58.22 58.22 0 0 1-38.77 31.57 65 65 0 0 1-11.16 1.62c-1.07.08-2.1.14-3.07.19-3.72.24-7.45.19-11.39.14h-2.09a24.28 24.28 0 0 1-4.33-.45l-1.76-.36-28-5.62-3.37-.67a4.46 4.46 0 0 1-1-.31c-4.77-2.16-11.2-7.62-15.95-13.1a4.64 4.64 0 0 1 .5-6.53c5.61-4.78 8.81-11.74 8.93-20v-4.4c0-2.82-.05-5.75 0-8.53.45-17 6.82-30.88 19.44-42.28 12.87-11.5 27.9-16.43 44.69-14.65 22.16 2.36 38.17 13.75 47.6 33.82a57.7 57.7 0 0 1-.27 49.56Z" fill="#333"/><path d="M86.87 77.85a6 6 0 1 1 6-6 6 6 0 0 1-6 6Zm54.05-6.12a6.1 6.1 0 0 1-5.95 6 5.93 5.93 0 0 1-6.05-6 6 6 0 0 1 12-.1Zm-56.84 72.84a20.22 20.22 0 1 0 3.32 12.92 15.94 15.94 0 0 0 .08-1.71 20.16 20.16 0 0 0-3.4-11.21Zm-16.82 19.3a8.09 8.09 0 1 1 8.07-8.68v.59a8.1 8.1 0 0 1-8.07 8.09Zm74.47-17.55a20.25 20.25 0 0 0-9-8.73 57.64 57.64 0 0 1-14.81 5.86 65 65 0 0 1-11.16 1.62 20.06 20.06 0 0 0-3.07 10.71c0 .55 0 1.08.07 1.62a20.21 20.21 0 1 0 38-11.08Zm-17.86 17.55a8.1 8.1 0 0 1-8.08-7.62v-.47A8.08 8.08 0 0 1 131 151.9a8 8 0 0 1 1 3.88 8.1 8.1 0 0 1-8.13 8.09Z" fill="#333"/><path d="M83.73 96a28.22 28.22 0 0 0 54 0" stroke="#333" stroke-linecap="round" stroke-miterlimit="10" stroke-width="12px" fill="none"/></svg>
+                Abrir com o Waze
+            </a>
+
+            <!-- Botão Google Maps -->
+            <a class="route-btn" href="https://www.google.com/maps/search/?api=1&query=R.+29,+109+-+Santa+Mônica+Popular,+Vila+Velha+-+ES,+29105-490" target="_blank" onclick="closeModal('mapModal')">
+                <svg viewBox="0 0 32 32" style="width: 24px; height: 24px;"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 12.8116L23.9999 12.8541C23.9998 12.872 23.9996 12.8899 23.9994 12.9078C23.9998 12.9287 24 12.9498 24 12.971C24 16.3073 21.4007 19.2604 19.6614 21.2367C19.1567 21.8101 18.7244 22.3013 18.449 22.6957C17.4694 24.0986 16.9524 25.6184 16.8163 26.2029C16.8163 26.6431 16.4509 27 16 27C15.5491 27 15.1837 26.6431 15.1837 26.2029C15.0476 25.6184 14.5306 24.0986 13.551 22.6957C13.2756 22.3013 12.8433 21.8101 12.3386 21.2367C10.5993 19.2604 8 16.3073 8 12.971C8 12.9498 8.0002 12.9287 8.0006 12.9078C8.0002 12.8758 8 12.8437 8 12.8116C8 8.49736 11.5817 5 16 5C20.4183 5 24 8.49736 24 12.8116ZM16 15.6812C17.7132 15.6812 19.102 14.325 19.102 12.6522C19.102 10.9793 17.7132 9.62319 16 9.62319C14.2868 9.62319 12.898 10.9793 12.898 12.6522C12.898 14.325 14.2868 15.6812 16 15.6812Z" fill="#34A851"/><path d="M23.1054 9.21856C22.1258 7.37546 20.4161 5.96177 18.3504 5.34277L13.7559 10.5615C14.3208 9.98352 15.1174 9.62346 16.0002 9.62346C17.7134 9.62346 19.1022 10.9796 19.1022 12.6524C19.1022 13.3349 18.8711 13.9646 18.4811 14.4711L23.1054 9.21856Z" fill="#4285F5"/><path d="M12.4311 21.3425C12.4004 21.3076 12.3695 21.2725 12.3383 21.2371C11.1918 19.9344 9.67162 18.2073 8.76855 16.2257L13.5439 10.8018C13.1387 11.3136 12.8976 11.9556 12.8976 12.6526C12.8976 14.3254 14.2865 15.6816 15.9997 15.6816C16.8675 15.6816 17.6521 15.3336 18.2151 14.7727L12.4311 21.3425Z" fill="#F9BB0E"/><path d="M9.89288 7.76562C8.71207 9.12685 8 10.8881 8 12.8117C8 12.8438 8.0002 12.8759 8.0006 12.9079C8.0002 12.9288 8 12.9499 8 12.9711C8 14.1082 8.30196 15.2009 8.76889 16.2254L13.5362 10.8106L9.89288 7.76562Z" fill="#E74335"/><path d="M18.3499 5.34254C17.6068 5.11988 16.8176 5 15.9997 5C13.5514 5 11.36 6.07387 9.89258 7.76553L13.5359 10.8105L13.5438 10.8015C13.6101 10.7178 13.6807 10.6375 13.7554 10.5611L18.3499 5.34254Z" fill="#1A73E6"/></svg>
+                Abrir com o Google Maps
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Função para copiar a chave Pix automaticamente ao clicar
+        function copiarPix() {
+            const numeroPix = "27988102800";
+            navigator.clipboard.writeText(numeroPix).then(() => {
+                const pixText = document.getElementById('pixKeyText');
+                
+                pixText.innerHTML = "✨ Chave Pix Copiada! ✨";
+                pixText.style.color = "#C9A44C";
+                
+                setTimeout(() => {
+                    pixText.innerHTML = "27 98810-2800";
+                    pixText.style.color = "#2C2C2C";
+                }, 2500);
+            });
+        }
+
+        // Animação global de clique na tela inteira
+        window.addEventListener('click', function(event) {
+            if (event.target.closest('.action-card') || event.target.closest('.modal-content') || event.target.closest('a')) {
+                return;
+            }
+
+            const x = event.clientX;
+            const y = event.clientY;
+
+            const lottieElement = document.createElement('dotlottie-wc');
+            lottieElement.setAttribute('src', 'https://lottie.host/0dbbf394-a015-486e-8108-42e81628afc6/i4ozD9EhZM.json');
+            lottieElement.setAttribute('autoplay', '');
+            lottieElement.className = 'click-lottie';
+            lottieElement.style.left = x + 'px';
+            lottieElement.style.top = y + 'px';
+
+            document.body.appendChild(lottieElement);
+
+            setTimeout(() => {
+                lottieElement.remove();
+            }, 1200);
+        });
+    </script>
+</body>
+</html>
